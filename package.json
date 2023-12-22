@@ -30,6 +30,7 @@
     "vaul": "^0.8.0"
   },
   "devDependencies": {
+    "@next-auth/upstash-redis-adapter": "^3.0.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -39,6 +40,7 @@
     "eslint-plugin-autofix": "^1.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "next-auth": "^4.24.5",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"

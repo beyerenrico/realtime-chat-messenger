@@ -1,6 +1,7 @@
 import { Redis } from '@upstash/redis';
+import {getEnvironmentVariable} from '@/lib/utils';
 
 export const db = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL as string,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN as string
+  url: getEnvironmentVariable('UPSTASH_REDIS_REST_URL'),
+  token: getEnvironmentVariable('UPSTASH_REDIS_REST_TOKEN'),
 });
