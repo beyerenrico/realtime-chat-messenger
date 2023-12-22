@@ -1,13 +1,11 @@
 import {FC} from 'react';
 
-type DashboardProps = {
-
-};
+type DashboardProps = {};
 
 const Dashboard: FC<DashboardProps> = ({}) => {
   return (
     <div>
-      DashboardPage
+      Dashboard
     </div>
   );
 };
