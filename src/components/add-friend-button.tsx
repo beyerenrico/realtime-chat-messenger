@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LucidePlus } from 'lucide-react';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -35,7 +35,7 @@ const AddFriendButton: FC<AddFriendButtonProps> = ({}) => {
         body: JSON.stringify({ email: validatedEmail }),
       })
         .then((res) => res.json())
-        .then((data) => {
+        .then(() => {
           toast.success('Friend request sent');
         });
     } catch (error) {
