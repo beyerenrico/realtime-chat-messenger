@@ -1,7 +1,11 @@
 {
   "extends": "next/core-web-vitals",
-  "plugins": [],
+  "plugins": ["@stylistic/eslint-plugin-js"],
   "rules": {
+    "space-before-blocks": "error",
+    "space-before-function-paren": "error",
+    "@stylistic/js/indent": ["error", 2],
+    "@stylistic/js/object-curly-spacing": ["error", "always"],
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
     "jsx-quotes": ["error", "prefer-single"],
