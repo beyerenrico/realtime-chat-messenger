@@ -1,5 +1,6 @@
 import {UpstashRedisAdapter} from '@next-auth/upstash-redis-adapter';
 import {NextAuthOptions} from 'next-auth';
+import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import {db} from '@/lib/db';
 import {getEnvironmentVariable} from '@/lib/utils';
@@ -16,6 +17,10 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: getEnvironmentVariable('GOOGLE_CLIENT_ID'),
       clientSecret: getEnvironmentVariable('GOOGLE_CLIENT_SECRET'),
+    }),
+    GithubProvider({
+      clientId: getEnvironmentVariable('GITHUB_CLIENT_ID'),
+      clientSecret: getEnvironmentVariable('GITHUB_CLIENT_SECRET'),
     })
   ],
   callbacks: {
@@ -23,7 +28,6 @@ export const authOptions: NextAuthOptions = {
       const dbUser = await db.get(`user:${token.id}`) as User | null;
 
       if (!dbUser) {
-        token.id = user.id;
         return token;
       }
 
@@ -31,7 +35,7 @@ export const authOptions: NextAuthOptions = {
         id: dbUser.id,
         name: dbUser.name,
         email: dbUser.email,
-        image: dbUser.image,
+        picture: dbUser.image,
       };
     },
     async session({session, token}) {
