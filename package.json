@@ -9,13 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
+    "@tailwindcss/forms": "^0.5.7",
     "@upstash/redis": "^1.27.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -24,14 +27,17 @@
     "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.49.2",
     "react-resizable-panels": "^1.0.4",
     "sonner": "^1.2.4",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^0.8.0"
+    "vaul": "^0.8.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@next-auth/upstash-redis-adapter": "^3.0.4",
+    "@stylistic/eslint-plugin-js": "^1.5.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
