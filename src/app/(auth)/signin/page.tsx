@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import {signIn} from 'next-auth/react';
-import {FC, useState} from 'react';
-import {toast} from 'sonner';
-import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { signIn } from 'next-auth/react';
+import { FC, useState } from 'react';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 type SignInProps = {};
 
@@ -23,7 +23,7 @@ const providers = [
 const SignIn: FC<SignInProps> = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  async function loginWithOAuthProvider(provider: string) {
+  async function loginWithOAuthProvider (provider: string) {
     setIsLoading(true);
 
     try {

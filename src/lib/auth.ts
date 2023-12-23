@@ -1,11 +1,11 @@
-import {UpstashRedisAdapter} from '@next-auth/upstash-redis-adapter';
-import {NextAuthOptions} from 'next-auth';
+import { UpstashRedisAdapter } from '@next-auth/upstash-redis-adapter';
+import { NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import {db} from '@/lib/db';
-import {getEnvironmentVariable} from '@/lib/utils';
+import { db } from '@/lib/db';
+import { getEnvironmentVariable } from '@/lib/utils';
 
-export const authOptions: NextAuthOptions = {
+export const authConfig: NextAuthOptions = {
   adapter: UpstashRedisAdapter(db),
   session: {
     strategy: 'jwt',
@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    async jwt({token, user}) {
+    async jwt ({ token, user }) {
       const dbUser = await db.get(`user:${token.id}`) as User | null;
 
       if (!dbUser) {
@@ -38,7 +38,7 @@ export const authOptions: NextAuthOptions = {
         picture: dbUser.image,
       };
     },
-    async session({session, token}) {
+    async session ({ session, token }) {
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name;
@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
 
       return session;
     },
-    redirect() {
+    redirect () {
       return '/dashboard';
     }
   }
