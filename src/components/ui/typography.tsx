@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
+
 type TypographyProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Heading1 = ({ children }: TypographyProps) => {
