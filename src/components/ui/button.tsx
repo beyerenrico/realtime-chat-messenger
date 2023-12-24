@@ -1,5 +1,4 @@
 import { Slot } from '@radix-ui/react-slot';
-import { as } from '@upstash/redis/zmscore-fa7fc9c8';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { LucideLoader2 } from 'lucide-react';
 import * as React from 'react';

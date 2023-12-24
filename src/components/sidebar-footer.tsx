@@ -1,7 +1,6 @@
 'use client';
 
 import { LucideLoader2, LucideLogOut, LucideUserRound } from 'lucide-react';
-import { redirect } from 'next/navigation';
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { FC, useState } from 'react';
