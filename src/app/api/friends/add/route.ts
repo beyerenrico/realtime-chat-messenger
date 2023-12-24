@@ -5,7 +5,7 @@ import { authConfig } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { addFriendValidator } from '@/lib/validations/add-friend';
 
-export async function POST (req: Request, res: Response) {
+export async function POST (req: Request) {
   const session = await getServerSession(authConfig);
 
   if (!session) {
