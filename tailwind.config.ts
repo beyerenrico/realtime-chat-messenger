@@ -76,6 +76,12 @@ const config: Config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      gridTemplateRows: {
+        'dashboard-layout': '4rem auto',
+      },
+      maxHeight: {
+        'dashboard-layout': 'calc(100vh - 4rem)',
+      }
     },
   },
   plugins: [
