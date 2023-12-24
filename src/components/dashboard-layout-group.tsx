@@ -1,37 +1,24 @@
-'use client';
-
 import { Session } from 'next-auth';
-import { FC } from 'react';
-import { ModeToggle } from '@/components/theme-toggle';
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
-import { Paragraph } from '@/components/ui/typography';
+import { FC, ReactNode } from 'react';
+import DashboardContentDesktop from '@/components/dashboard-content-desktop';
+import DashboardContentMobile from '@/components/dashboard-content-mobile';
+import DashboardHeader from '@/components/dashboard-header';
 
 type DashboardLayoutGroupProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   session: Session;
 };
 
-const DashboardLayoutGroup: FC<DashboardLayoutGroupProps> = ({ children, session }) => {
+const DashboardLayoutGroup: FC<DashboardLayoutGroupProps> = async ({ children, session }) => {
   return (
-    <div className='h-full overflow-hidden'>
-      <div className='border-b px-6 h-16 flex items-center justify-between'>
-        <span className='font-bold'>Realtime Chat Messenger</span>
-        <ModeToggle />
+    <div className='h-full grid grid-rows-dashboard-layout'>
+      <DashboardHeader session={session} />
+      <div className='hidden md:block max-h-dashboard-layout'>
+        <DashboardContentDesktop session={session}>{children}</DashboardContentDesktop>
       </div>
-      <ResizablePanelGroup direction='horizontal'>
-        <ResizablePanel defaultSize={15}>
-          <div className='grid grid-cols-1 p-6'>
-            <Paragraph>{session.user.name}</Paragraph>
-            <Paragraph>{session.user.email}</Paragraph>
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={85}>
-          <div className='p-6'>
-            {children}
-          </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+      <div className='md:hidden'>
+        <DashboardContentMobile session={session}>{children}</DashboardContentMobile>
+      </div>
     </div>
   );
 };
