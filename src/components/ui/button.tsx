@@ -1,4 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
+import { as } from '@upstash/redis/zmscore-fa7fc9c8';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { LucideLoader2 } from 'lucide-react';
 import * as React from 'react';
@@ -61,8 +62,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           ref={ref}
           {...props}
         >
-          {isLoading && <LucideLoader2 size={14} className='animate-spin'/>}
-          {props.children}
+          {asChild ? props.children : (
+            <>
+              {isLoading && <LucideLoader2 size={14} className='animate-spin'/>}
+              {props.children}
+            </>
+          )}
         </Comp>
       </>
     );
@@ -71,3 +76,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button';
 
 export { Button, buttonVariants };
+
