@@ -1,10 +1,9 @@
 import { LucideMenu } from 'lucide-react';
-import { Session } from 'next-auth';
 import { FC } from 'react';
 import SidebarFooter from '@/components/sidebar-footer';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 
-const MobileMenuDrawer: FC<{session: Session}> = ({ session }) => {
+const MobileMenuDrawer: FC = () => {
   return (
     <div className='md:hidden'>
       <Drawer>
@@ -14,7 +13,7 @@ const MobileMenuDrawer: FC<{session: Session}> = ({ session }) => {
           </div>
         </DrawerTrigger>
         <DrawerContent>
-          <SidebarFooter session={session} />
+          <SidebarFooter />
         </DrawerContent>
       </Drawer>
     </div>

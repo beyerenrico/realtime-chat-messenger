@@ -1,11 +1,12 @@
 'use client';
 
-import { LucideIcon, LucideRadio, LucideUserPlus2 } from 'lucide-react';
+import { LucideIcon, LucideUserPlus2 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Session } from 'next-auth';
 import { FC } from 'react';
+import FriendRequestSidebarMenuItem from '@/components/friend-request-sidebar-menu-item';
 import { Button } from '@/components/ui/button';
+import { useStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
 
 type MenuItem = {
@@ -21,20 +22,17 @@ const sidebarMenuItems: MenuItem[] = [
     name: 'Add Friend',
     href: '/dashboard/add',
     Icon: LucideUserPlus2,
-  },
-  {
-    id: 2,
-    name: 'Friend Requests',
-    href: '/dashboard/requests',
-    Icon: LucideRadio,
   }
 ];
 
-const SidebarLinks: FC<{session: Session}> = ({ session }) => {
+const SidebarLinks: FC = () => {
   const pathName = usePathname();
+  const { session, unseenFriendRequestsCount } = useStore();
+
+  if (!session) return null;
 
   return (
-    <div className=' p-4 md:p-6'>
+    <div className='p-4 md:p-6'>
       <span className='text-xs font-semibold mb-2 text-slate-500 block'>Overview</span>
       <nav>
         <ul role='list' className='grid gap-2'>
@@ -51,6 +49,7 @@ const SidebarLinks: FC<{session: Session}> = ({ session }) => {
               </Button>
             </li>
           ))}
+          <FriendRequestSidebarMenuItem sessionId={session.user.id} initialUnseenFriendRequestsCount={unseenFriendRequestsCount} />
         </ul>
       </nav>
     </div>

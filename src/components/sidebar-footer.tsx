@@ -1,7 +1,6 @@
 'use client';
 
 import { LucideLoader2, LucideLogOut, LucideUserRound } from 'lucide-react';
-import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { FC, useState } from 'react';
 import { toast } from 'sonner';
@@ -9,9 +8,13 @@ import SidebarLinks from '@/components/sidebar-links';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { useStore } from '@/lib/store';
 
-const SidebarFooter: FC<{session: Session}> = ({ session }) => {
+const SidebarFooter: FC = () => {
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const { session } = useStore();
+
+  if (!session) return null;
 
   const handleSignOut = async () => {
     try {
@@ -26,8 +29,8 @@ const SidebarFooter: FC<{session: Session}> = ({ session }) => {
 
   return (
     <div>
-      <Separator />
-      <SidebarLinks session={session} />
+      <Separator className='hidden md:block' />
+      <SidebarLinks />
       <Separator />
       <div className='flex gap-2 p-4 md:p-6 items-center justify-between'>
         <div className='flex items-center gap-2'>
