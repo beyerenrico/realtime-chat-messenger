@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { z } from 'zod';
-import { checkIfFriendRequestExists, checkIfUserIsFriend, fetchRedis } from '@/helpers/redis';
+import { checkIfFriendRequestExists, checkIfUserIsFriend } from '@/helpers/redis';
 import { authConfig } from '@/lib/auth';
 import { db } from '@/lib/db';
 
