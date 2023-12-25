@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { z } from 'zod';
-import { fetchRedis } from '@/helpers/redis';
+import { checkIfAlreadyAdded, checkIfHasFriendRequestFromUser, checkIfUserIsFriend, fetchRedis } from '@/helpers/redis';
 import { authConfig } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { addFriendValidator } from '@/lib/validations/add-friend';
@@ -33,26 +33,13 @@ export async function POST (req: Request) {
     }
 
     // Check if user has already sent a friend request
-    const isAlreadyAdded = (await fetchRedis(
-      'sismember',
-      `user:${idToAdd}:incoming_friend_requests`,
-      session.user.id
-    )) as 0 | 1;
+    await checkIfAlreadyAdded(session.user.id, idToAdd);
 
-    if (Boolean(isAlreadyAdded)) {
-      return new Response('You already sent a friend request to this user.', { status: 400 });
-    }
+    // Check if user has already a friend request from the user
+    await checkIfHasFriendRequestFromUser(session.user.id, idToAdd);
 
     // Check if user is already a friend
-    const isAlreadyFriend = (await fetchRedis(
-      'sismember',
-      `user:${session.user.id}:friends`,
-      idToAdd
-    )) as 0 | 1;
-
-    if (Boolean(isAlreadyFriend)) {
-      return new Response('User is already a friend', { status: 400 });
-    }
+    await checkIfUserIsFriend(session.user.id, idToAdd);
 
     // Add friend request to user
     await db.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id);
