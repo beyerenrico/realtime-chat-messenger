@@ -5,11 +5,11 @@ type TypographyProps = {
 }
 
 const Heading1 = ({ children }: TypographyProps) => {
-  return <h1 className='text-4xl font-bold'>{children}</h1>;
+  return <h1 className='text-4xl font-bold mb-4'>{children}</h1>;
 };
 
 const Heading2 = ({ children }: TypographyProps) => {
-  return <h2 className='text-3xl font-bold'>{children}</h2>;
+  return <h2 className='text-3xl font-bold mb-2'>{children}</h2>;
 };
 
 const Heading3 = ({ children }: TypographyProps) => {
