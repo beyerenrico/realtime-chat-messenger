@@ -5,7 +5,7 @@ import { Heading1 } from '@/components/ui/typography';
 const AddPage: FC = () => {
   return (
     <div className='space-y-4'>
-      <Heading1>Add a friend</Heading1>
+      <Heading1>Add Friend</Heading1>
       <AddFriendButton />
     </div>
   );

@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getServerSession } from 'next-auth';
+import { Heading1 } from '@/components/ui/typography';
 import { authConfig } from '@/lib/auth';
 
 const Dashboard = async () => {
@@ -9,7 +10,7 @@ const Dashboard = async () => {
 
   return (
     <div>
-      <pre>{JSON.stringify(session)}</pre>
+      <Heading1>Dashboard</Heading1>
     </div>
   );
 };

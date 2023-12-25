@@ -6,6 +6,7 @@ import { FC, useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Heading1 } from '@/components/ui/typography';
 
 type SignInProps = {};
 
@@ -27,7 +28,7 @@ const SignIn: FC<SignInProps> = ({}) => {
     setIsLoading(true);
 
     try {
-      await signIn(provider);
+      await signIn(provider, undefined, { prompt: 'select_account' });
     } catch (error) {
       toast.error('Something went wrong', {
         description: 'There was a problem with your request.',
@@ -38,25 +39,24 @@ const SignIn: FC<SignInProps> = ({}) => {
   }
 
   return (
-    <>
-      <div className='min-h-full flex items-center justify-center p-4'>
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              Sign in to your account
-            </CardTitle>
-          </CardHeader>
-          <CardContent className='grid grid-cols-1 space-y-2'>
-            {providers.map((provider) => (
-              <Button key={provider.id} isLoading={isLoading} onClick={() => loginWithOAuthProvider(provider.id)} className='flex' size='lg'>
-                {!isLoading && <Image src={`/${provider.id}-logo.svg`} alt={`Sign in with ${provider.name}`} width={20} height={20} />}
+    <div className='grid gap-8 place-items-center p-4'>
+      <Heading1>Realtime Chat Messenger</Heading1>
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            Sign in to your account
+          </CardTitle>
+        </CardHeader>
+        <CardContent className='grid grid-cols-1 space-y-2'>
+          {providers.map((provider) => (
+            <Button key={provider.id} isLoading={isLoading} onClick={() => loginWithOAuthProvider(provider.id)} className='flex' size='lg'>
+              {!isLoading && <Image src={`/${provider.id}-logo.svg`} alt={`Sign in with ${provider.name}`} width={20} height={20} />}
                 Continue with {provider.name}
-              </Button>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
-    </>
+            </Button>
+          ))}
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
