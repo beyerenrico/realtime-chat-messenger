@@ -3,7 +3,7 @@
 import { LucideRadio } from 'lucide-react';
 import Link from 'next/link';
 import { notFound, usePathname } from 'next/navigation';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useStore } from '@/lib/store';
