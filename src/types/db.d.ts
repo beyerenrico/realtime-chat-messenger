@@ -5,3 +5,22 @@ type User = {
   id: string;
   emailVerified: string | null;
 }
+
+type Chat = {
+  id: string;
+  messages: Message[];
+}
+
+type Message = {
+  id: string;
+  senderId: string;
+  recipientId: string;
+  content: string;
+  createdAt: number;
+}
+
+type ChatRequest = {
+  id: string;
+  senderId: string;
+  recipientId: string;
+}

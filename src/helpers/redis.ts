@@ -1,4 +1,7 @@
+import { notFound } from 'next/navigation';
+import { z } from 'zod';
 import { getEnvironmentVariable } from '@/lib/utils';
+import { messageListValidator } from '@/lib/validations/message';
 
 const upstashRedisRestUrl = getEnvironmentVariable('UPSTASH_REDIS_REST_URL');
 const upstashRedisRestToken = getEnvironmentVariable('UPSTASH_REDIS_REST_TOKEN');
@@ -103,5 +106,18 @@ export async function checkIfFriendRequestExists (userId: string, friendId: stri
 
   if (!Boolean(friendRequestExits)) {
     return new Response('You do not have a friend request from this user.', { status: 400 });
+  }
+}
+
+export async function getChatMessages (chatId: string) {
+  try {
+    const result: string[] = await fetchRedis('zrange', `chat:${chatId}:messages`, 0, -1);
+
+    const messages = result.map((message) => JSON.parse(message) as Message);
+    const reversedMessages = messages.reverse();
+
+    return messageListValidator.parse(reversedMessages);
+  } catch (error) {
+    return notFound();
   }
 }
