@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 import FriendRequestSidebarMenuItem from '@/components/friend-request-sidebar-menu-item';
 import { Button } from '@/components/ui/button';
-import { useStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
 
 type MenuItem = {
@@ -27,9 +26,6 @@ const sidebarMenuItems: MenuItem[] = [
 
 const SidebarLinks: FC = () => {
   const pathName = usePathname();
-  const { session, unseenFriendRequestsCount } = useStore();
-
-  if (!session) return null;
 
   return (
     <div className='p-4 md:p-6'>
@@ -49,7 +45,7 @@ const SidebarLinks: FC = () => {
               </Button>
             </li>
           ))}
-          <FriendRequestSidebarMenuItem sessionId={session.user.id} initialUnseenFriendRequestsCount={unseenFriendRequestsCount} />
+          <FriendRequestSidebarMenuItem />
         </ul>
       </nav>
     </div>

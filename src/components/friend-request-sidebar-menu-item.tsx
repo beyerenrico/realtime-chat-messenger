@@ -2,19 +2,17 @@
 
 import { LucideRadio } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { notFound, usePathname } from 'next/navigation';
 import { FC, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
 
-type FriendRequestSidebarMenuItemProps = {
-  sessionId: string;
-  initialUnseenFriendRequestsCount: number;
-};
+type FriendRequestSidebarMenuItemProps = {};
 
-const FriendRequestSidebarMenuItem: FC<FriendRequestSidebarMenuItemProps> = ({ sessionId, initialUnseenFriendRequestsCount }) => {
-  const [unseenFriendRequestsCount, setUnseenFriendRequestsCount] = useState<number>(initialUnseenFriendRequestsCount);
+const FriendRequestSidebarMenuItem: FC<FriendRequestSidebarMenuItemProps> = ({}) => {
+  const { session, unseenFriendRequestsCount } = useStore();
   const pathName = usePathname();
   const menuItem = {
     id: 2,
@@ -22,6 +20,8 @@ const FriendRequestSidebarMenuItem: FC<FriendRequestSidebarMenuItemProps> = ({ s
     href: '/dashboard/requests',
     Icon: LucideRadio,
   };
+
+  if (!session) notFound();
 
   return (
     <li>
