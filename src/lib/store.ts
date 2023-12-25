@@ -11,6 +11,11 @@ interface UnseenFriendRequestsSlice {
   setUnseenFriendRequestsCount: (unseenFriendRequests: number) => void;
 }
 
+interface FriendsSlice {
+  friends: Omit<User, 'emailVerified'>[];
+  setFriends: (friends: Omit<User, 'emailVerified'>[]) => void;
+}
+
 const createSessionStore: StateCreator<SessionSlice> = (set) => ({
   session: null,
   setSession: (session) => set({ session }),
@@ -21,8 +26,14 @@ const createUnseenFriendRequestsStore: StateCreator<UnseenFriendRequestsSlice> =
   setUnseenFriendRequestsCount: (unseenFriendRequestsCount) => set({ unseenFriendRequestsCount: unseenFriendRequestsCount }),
 });
 
+const createFriendsStore: StateCreator<FriendsSlice> = (set) => ({
+  friends: [],
+  setFriends: (friends) => set({ friends }),
+});
+
 // Bind Store Slices and export them as a combined store
-export const useStore = create<SessionSlice & UnseenFriendRequestsSlice>((...args) => ({
+export const useStore = create<SessionSlice & UnseenFriendRequestsSlice & FriendsSlice>((...args) => ({
   ...createSessionStore(...args),
   ...createUnseenFriendRequestsStore(...args),
+  ...createFriendsStore(...args),
 }));

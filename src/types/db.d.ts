@@ -17,6 +17,7 @@ type Message = {
   recipientId: string;
   content: string;
   createdAt: number;
+  seen: boolean;
 }
 
 type ChatRequest = {

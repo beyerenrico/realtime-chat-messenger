@@ -12,3 +12,11 @@ export function getEnvironmentVariable (name: string): string {
   }
   return value;
 }
+
+export function chatIdConstructor (user1: string, user2: string) {
+  return [user1, user2].sort().join('--');
+}
+
+export function chatHrefConstructor (user1: string, user2: string) {
+  return `/dashboard/chat/${chatIdConstructor(user1, user2)}`;
+}

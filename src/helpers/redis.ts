@@ -121,3 +121,9 @@ export async function getChatMessages (chatId: string) {
     return notFound();
   }
 }
+
+export async function getFriendsByUserId (userId: string) {
+  const friends = await fetchRedis('smembers', `user:${userId}:friends`);
+
+  return getMultipleUsersById(friends);
+}
