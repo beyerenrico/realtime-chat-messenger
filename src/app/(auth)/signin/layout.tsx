@@ -1,18 +1,10 @@
-import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authConfig } from '@/lib/auth';
+import { ReactNode } from 'react';
 
 type LayoutProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default async function SignInLayout ({ children }: LayoutProps) {
-  const session = await getServerSession(authConfig);
-
-  if (session) {
-    redirect('/dashboard');
-  }
-
   return (
     <div className='h-full grid place-items-center'>
       {children}
