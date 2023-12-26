@@ -20,3 +20,5 @@ export function chatIdConstructor (user1: string, user2: string) {
 export function chatHrefConstructor (user1: string, user2: string) {
   return `/dashboard/chat/${chatIdConstructor(user1, user2)}`;
 }
+
+export const toPusherKey = (key: string) => key.replace(/:/g, '__');
