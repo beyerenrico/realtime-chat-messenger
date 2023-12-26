@@ -13,7 +13,6 @@ import { chatHrefConstructor, cn, toPusherKey } from '@/lib/utils';
 import { Message } from '@/lib/validations/message';
 
 const SidebarChats: FC = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const { session, friends } = useStore();
   const [unseenMessages, setUnseenMessages] = useState<Message[]>([]);
