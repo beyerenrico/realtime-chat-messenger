@@ -42,6 +42,8 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --reduced-radius: 0.15rem;
   }
 
   .dark {
@@ -103,16 +105,24 @@ html {
   margin-bottom: 1rem;
 }
 
-.chat .group-left + .group-right div {
-  border-bottom-right-radius: 0;
-}
-
 .chat .group-right + .group-left {
   margin-bottom: 1rem;
 }
 
+.chat .group-left + .group-right div {
+  border-bottom-right-radius: var(--reduced-radius);
+}
+
 .chat .group-right + .group-left div {
-  border-bottom-left-radius: 0;
+  border-bottom-left-radius: var(--reduced-radius);
+}
+
+.chat .group-left + .group-right img {
+  display: block !important;
+}
+
+.chat .group-right + .group-left img {
+  display: block !important;
 }
 
 .chat .group-left + .group-left {
@@ -124,11 +134,19 @@ html {
 }
 
 .chat > :first-child + .group-left div {
-  border-bottom-left-radius: 0;
+  border-bottom-left-radius: var(--reduced-radius);
 }
 
 .chat > :first-child + .group-right div {
-  border-bottom-right-radius: 0;
+  border-bottom-right-radius: var(--reduced-radius);
+}
+
+.chat > :first-child + .group-left img {
+  display: block !important;
+}
+
+.chat > :first-child + .group-right img {
+  display: block !important;
 }
 
 .chat > :last-child {

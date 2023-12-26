@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { LucideSend } from 'lucide-react';
+import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -82,7 +82,7 @@ const Chat: FC<ChatProps> = ({ chatPartner, initialMessages, chatId }) => {
 
   return (
     <>
-      <div className='-m-4 md:-m-6 px-4 overflow-y-scroll h-full max-h-[calc(100vh-8rem)]' style={{ height: `calc(100vh - ${textareaHeight}px - 5rem)` }}>
+      <div className='flex flex-col justify-end -m-4 md:-m-6 px-4 overflow-y-scroll h-full max-h-[calc(100vh-8rem)]' style={{ height: `calc(100vh - ${textareaHeight}px - 5.5rem)` }}>
         {chatMessages.length === 0 && (
           <div className='flex items-center justify-center h-full'>
             <span className='text-lg opacity-50 text-center'>Start this conversation by sending a message</span>
@@ -109,10 +109,19 @@ const Chat: FC<ChatProps> = ({ chatPartner, initialMessages, chatId }) => {
                     'justify-end group-right': isCurrentUser,
                     'justify-start group-left': !isCurrentUser,
                   })}>
-                    <div className={cn('flex items-center space-x-2 max-w-[80%]', {
+                    <div className={cn('flex items-end gap-2 w-full', {
                       'flex-row-reverse': isCurrentUser,
                     })}>
-                      <div className='flex items-center'>
+                      <div className='w-8 h-8 flex-shrink-0'>
+                        <Image
+                          src={isCurrentUser ? (session.user.image || '') : chatPartner.image}
+                          alt={`Profile image of ${isCurrentUser ? session.user.name : chatPartner.name}`}
+                          width={32}
+                          height={32}
+                          className='w-8 h-8 !rounded-full bg-accent hidden'
+                        />
+                      </div>
+                      <div className='flex items-center max-w-[70%]'>
                         <div className={cn('p-2 rounded-lg space-x-2', {
                           'bg-chat-sender text-chat-sender-foreground': isCurrentUser,
                           'bg-chat-recipient text-chat-recipient-foreground': !isCurrentUser,
@@ -129,7 +138,7 @@ const Chat: FC<ChatProps> = ({ chatPartner, initialMessages, chatId }) => {
           </>
         )}
       </div>
-      <div className='bg-background/80 -mx-4 md:-mx-6 mt-4 md:mt-6 px-4 pt-1 flex items-center relative' style={{ height: `calc(${textareaHeight}px + 0.25rem)` }}>
+      <div className='bg-background/80 -mx-4 md:-mx-6 mt-4 md:mt-8 px-4 pt-2 flex items-center relative' style={{ height: `calc(${textareaHeight}px + .5rem)` }}>
         <Form {...form}>
           <form className='w-full h-full flex items-end gap-2' onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -160,15 +169,6 @@ const Chat: FC<ChatProps> = ({ chatPartner, initialMessages, chatId }) => {
                 </FormItem>
               )}
             />
-            <Button
-              type='submit'
-              className='flex items-center justify-center'
-              isLoading={isLoading}
-              disabled={isLoading}
-            >
-              <span className='sr-only'>Send message to {chatPartner.name}</span>
-              <LucideSend size={20} />
-            </Button>
           </form>
         </Form>
       </div>
