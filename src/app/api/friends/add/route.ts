@@ -3,6 +3,8 @@ import { z } from 'zod';
 import { checkIfAlreadyAdded, checkIfHasFriendRequestFromUser, checkIfUserIsFriend, fetchRedis } from '@/helpers/redis';
 import { authConfig } from '@/lib/auth';
 import { db } from '@/lib/db';
+import { pusherServer } from '@/lib/pusher';
+import { toPusherKey } from '@/lib/utils';
 import { addFriendValidator } from '@/lib/validations/add-friend';
 
 export async function POST (req: Request) {
@@ -40,6 +42,19 @@ export async function POST (req: Request) {
 
     // Check if user is already a friend
     await checkIfUserIsFriend(session.user.id, idToAdd);
+
+    // Notify user, that friend request has been sent
+    const data: IncomingFriendRequest = {
+      id: session.user.id,
+      email: session.user.email || '',
+      name: session.user.name || '',
+      image: session.user.image || '',
+    };
+    await pusherServer.trigger(
+      toPusherKey(`user:${idToAdd}:incoming_friend_requests`),
+      'incoming_friend_requests',
+      data
+    );
 
     // Add friend request to user
     await db.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id);

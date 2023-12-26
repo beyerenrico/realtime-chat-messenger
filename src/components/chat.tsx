@@ -2,16 +2,17 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { pusherClient } from '@/lib/pusher';
 import { useStore } from '@/lib/store';
-import { cn } from '@/lib/utils';
+import { cn, toPusherKey } from '@/lib/utils';
 import { Message } from '@/lib/validations/message';
 import { sendMessageValidator } from '@/lib/validations/send-message';
 
@@ -53,6 +54,23 @@ const Chat: FC<ChatProps> = ({ chatPartner, initialMessages, chatId }) => {
     scrollDownRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [isLoading]);
 
+  useEffect(() => {
+    const messageSentHandler = (e: { message: Message, sender: User }) => {
+      setChatMessages((prev) => [
+        e.message,
+        ...prev,
+      ]);
+    };
+
+    pusherClient.subscribe(toPusherKey(`user:${session?.user.id}:send_message`));
+    pusherClient.bind('send_message', messageSentHandler);
+
+    return () => {
+      pusherClient.unsubscribe(toPusherKey(`user:${session?.user.id}:send_message`));
+      pusherClient.unbind('send_message', messageSentHandler);
+    };
+  }, [session?.user.id]);
+
   if (!session) return null;
 
   const SendMessage = async (content: string) => {
@@ -75,6 +93,18 @@ const Chat: FC<ChatProps> = ({ chatPartner, initialMessages, chatId }) => {
   };
 
   const onSubmit = async (data: FormData) => {
+    const newMessage: Message = {
+      id: nanoid(),
+      senderId: session.user.id,
+      recipientId: chatPartner.id,
+      content: data.content,
+      createdAt: Date.now(),
+      seen: false,
+    };
+    setChatMessages((prev) => [
+      newMessage,
+      ...prev,
+    ]);
     await SendMessage(data.content);
   };
 
@@ -82,7 +112,7 @@ const Chat: FC<ChatProps> = ({ chatPartner, initialMessages, chatId }) => {
 
   return (
     <>
-      <div className='flex flex-col justify-end -m-4 md:-m-6 px-4 overflow-y-scroll h-full max-h-[calc(100vh-8rem)]' style={{ height: `calc(100vh - ${textareaHeight}px - 5.5rem)` }}>
+      <div className='-m-4 md:-m-6 px-4 overflow-y-scroll h-full max-h-[calc(100vh-8rem)]' style={{ height: `calc(100vh - ${textareaHeight}px - 5.5rem)` }}>
         {chatMessages.length === 0 && (
           <div className='flex items-center justify-center h-full'>
             <span className='text-lg opacity-50 text-center'>Start this conversation by sending a message</span>
