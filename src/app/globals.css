@@ -31,6 +31,12 @@
     --success: 142 71% 39%;
     --success-foreground: 210 40% 98%;
 
+    --chat-sender: 140 70% 60.1%;
+    --chat-sender-foreground: 222.2 40.4% 11.2%;
+
+    --chat-recipient: 210 70% 96.1%;
+    --chat-recipient-foreground: 222.2 47.4% 11.2%;
+
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
@@ -66,6 +72,12 @@
     --success: 142 62.8% 30.6%;
     --success-foreground: 210 40% 98%;
 
+    --chat-sender: 140, 30%, 48%;
+    --chat-sender-foreground: 222.2 47.4% 100%;
+
+    --chat-recipient: 210 10% 12%;
+    --chat-recipient-foreground: 222.2 100.4% 100%;
+
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -85,4 +97,40 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-smooth: never;
+}
+
+.chat .group-left + .group-right {
+  margin-bottom: 1rem;
+}
+
+.chat .group-left + .group-right div {
+  border-bottom-right-radius: 0;
+}
+
+.chat .group-right + .group-left {
+  margin-bottom: 1rem;
+}
+
+.chat .group-right + .group-left div {
+  border-bottom-left-radius: 0;
+}
+
+.chat .group-left + .group-left {
+  margin-bottom: 0.25rem;
+}
+
+.chat .group-right + .group-right {
+  margin-bottom: 0.25rem;
+}
+
+.chat > :first-child + .group-left div {
+  border-bottom-left-radius: 0;
+}
+
+.chat > :first-child + .group-right div {
+  border-bottom-right-radius: 0;
+}
+
+.chat > :last-child {
+  margin-top: 1rem;
 }

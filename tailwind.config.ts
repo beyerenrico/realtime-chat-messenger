@@ -40,6 +40,14 @@ const config: Config = {
           DEFAULT: 'hsl(var(--success))',
           foreground: 'hsl(var(--success-foreground))',
         },
+        'chat-sender': {
+          DEFAULT: 'hsl(var(--chat-sender))',
+          foreground: 'hsl(var(--chat-sender-foreground))',
+        },
+        'chat-recipient': {
+          DEFAULT: 'hsl(var(--chat-recipient))',
+          foreground: 'hsl(var(--chat-recipient-foreground))',
+        },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',

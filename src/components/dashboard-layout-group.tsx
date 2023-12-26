@@ -14,7 +14,7 @@ const DashboardLayoutGroup: FC<DashboardLayoutGroupProps> = ({ children }) => {
       <div className='hidden md:block max-h-dashboard-layout'>
         <DashboardContentDesktop>{children}</DashboardContentDesktop>
       </div>
-      <div className='md:hidden'>
+      <div className='md:hidden max-h-dashboard-layout'>
         <DashboardContentMobile>{children}</DashboardContentMobile>
       </div>
     </div>

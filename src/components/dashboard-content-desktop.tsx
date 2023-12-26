@@ -19,8 +19,8 @@ const DashboardContentDesktop: FC<DashboardContentDesktopProps> = ({ children })
         <SidebarFooter />
       </ResizablePanel>
       <ResizableHandle withHandle/>
-      <ResizablePanel defaultSize={85}>
-        <div className='p-6'>
+      <ResizablePanel defaultSize={85} className='min-w-[350px]'>
+        <div className='h-full p-6'>
           {children}
         </div>
       </ResizablePanel>
