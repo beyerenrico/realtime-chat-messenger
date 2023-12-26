@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React, { FC } from 'react';
 import DashboardLayoutGroup from '@/components/dashboard-layout-group';
+import ClientSideNotificationManager from '@/helpers/client-side-notification-manager';
 import ClientSideStateManager from '@/helpers/client-side-state-manager';
 import { fetchRedis, getFriendsByUserId } from '@/helpers/redis';
 import { authConfig } from '@/lib/auth';
@@ -26,6 +27,7 @@ const DashboardLayout: FC<LayoutProps> = async ({ children }) => {
   return (
     <>
       <ClientSideStateManager session={session} friends={friends} unseenFriendRequestsCount={unseenFriendRequestsCount} />
+      <ClientSideNotificationManager />
       <DashboardLayoutGroup>
         {children}
       </DashboardLayoutGroup>
