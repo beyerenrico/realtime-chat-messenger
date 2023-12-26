@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { z } from 'zod';
+import { cryptr } from '@/lib/cryptr';
 import { getEnvironmentVariable } from '@/lib/utils';
 import { messageListValidator } from '@/lib/validations/message';
 
@@ -113,7 +113,10 @@ export async function getChatMessages (chatId: string) {
   try {
     const result: string[] = await fetchRedis('zrange', `chat:${chatId}:messages`, 0, -1);
 
-    const messages = result.map((message) => JSON.parse(message) as Message);
+    const messages = result.map((message) => {
+      const decryptedMessage = cryptr.decrypt(message);
+      return JSON.parse(decryptedMessage) as Message;
+    });
     const reversedMessages = messages.reverse();
 
     return messageListValidator.parse(reversedMessages);
