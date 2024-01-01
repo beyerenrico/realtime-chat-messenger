@@ -20,7 +20,7 @@ const DashboardContentDesktop: FC<DashboardContentDesktopProps> = ({ children })
       </ResizablePanel>
       <ResizableHandle withHandle/>
       <ResizablePanel defaultSize={85} className='min-w-[350px]'>
-        <div className='h-full p-6'>
+        <div className='h-full p-6 flex flex-col justify-between'>
           {children}
         </div>
       </ResizablePanel>

@@ -112,7 +112,7 @@ const Chat: FC<ChatProps> = ({ chatPartner, initialMessages, chatId }) => {
 
   return (
     <>
-      <div className='-m-4 md:-m-6 px-4 overflow-y-scroll h-full max-h-[calc(100vh-8rem)]' style={{ height: `calc(100vh - ${textareaHeight}px - 5.5rem)` }}>
+      <div className='overflow-y-scroll flex-1 max-h-[calc(100svh-8rem)]'>
         {chatMessages.length === 0 && (
           <div className='flex items-center justify-center h-full'>
             <span className='text-lg opacity-50 text-center'>Start this conversation by sending a message</span>
@@ -168,7 +168,7 @@ const Chat: FC<ChatProps> = ({ chatPartner, initialMessages, chatId }) => {
           </>
         )}
       </div>
-      <div className='bg-background/80 -mx-4 md:-mx-6 mt-4 md:mt-8 px-4 pt-2 flex items-center relative' style={{ height: `calc(${textareaHeight}px + .5rem)` }}>
+      <div className='bg-background/80 flex-shrink-0 mt-4 md:mt-8 pt-2 flex items-center relative'>
         <Form {...form}>
           <form className='w-full h-full flex items-end gap-2' onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
