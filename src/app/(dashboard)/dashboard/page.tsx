@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getServerSession } from 'next-auth';
+import ChatList from '@/components/chat-list';
 import { Heading1 } from '@/components/ui/typography';
 import { authConfig } from '@/lib/auth';
 
@@ -10,7 +11,8 @@ const Dashboard = async () => {
 
   return (
     <div>
-      <Heading1>Dashboard</Heading1>
+      <Heading1>Your Chats</Heading1>
+      <ChatList />
     </div>
   );
 };

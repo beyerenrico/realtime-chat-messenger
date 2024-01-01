@@ -47,6 +47,11 @@ const ChatList: FC<ChatListProps> = ({}) => {
   return (
     <nav>
       <ul role='list' className='space-y-2 overflow-hidden'>
+        {friends.length === 0 && (
+          <li>
+            <p className='text-sm font-medium'>Add a friend to start a chat.</p>
+          </li>
+        )}
         {friends.sort().map((friend) => {
           const unseenMessagesCount = unseenMessages.filter((message) => message.senderId === friend.id).length;
 
