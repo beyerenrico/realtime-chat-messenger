@@ -6,7 +6,7 @@ type DashboardContentMobileProps = {
 
 const DashboardContentMobile: FC<DashboardContentMobileProps> = ({ children }) => {
   return (
-    <div className='h-full p-4'>
+    <div className='h-full p-4 flex flex-col justify-between'>
       {children}
     </div>
   );
