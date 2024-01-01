@@ -9,7 +9,7 @@ type DashboardLayoutGroupProps = {
 
 const DashboardLayoutGroup: FC<DashboardLayoutGroupProps> = ({ children }) => {
   return (
-    <div className='h-full grid grid-rows-dashboard-layout'>
+    <div className='h-[100svh] grid grid-rows-dashboard-layout'>
       <DashboardHeader />
       <div className='hidden md:block max-h-dashboard-layout'>
         <DashboardContentDesktop>{children}</DashboardContentDesktop>
